@@ -1,0 +1,15 @@
+{
+  "applinks": {
+    "details": [
+      {
+        "appIDs": ["JCDCQ2C968.com.airsoft.airsoftTactical"],
+        "components": [
+          {
+            "/": "/at/j",
+            "comment": "Invito a una partita di Airsoft Tactical"
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Invito - Airsoft Tactical</title>
+<style>
+  :root { color-scheme: dark; }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; padding: 24px 16px calc(24px + env(safe-area-inset-bottom, 0px));
+    background: #12201B; color: #F0EAD8;
+    font: 16px/1.5 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    display: flex; flex-direction: column; align-items: center;
+  }
+  main { width: 100%; max-width: 420px; }
+  h1 { font-size: 20px; letter-spacing: .06em; margin: 0 0 4px; }
+  .bracket { color: #E8622C; }
+  .sub { color: #9FB3A8; font-size: 14px; margin: 0 0 24px; }
+  .card {
+    background: #1A2C25; border: 1px solid #2C443A; border-radius: 12px;
+    padding: 20px; margin-bottom: 16px;
+  }
+  .game { font-size: 22px; font-weight: 700; margin: 0 0 4px; }
+  .team { color: #3E8E7E; font-weight: 600; margin: 0; }
+  .muted { color: #9FB3A8; font-size: 14px; }
+  a.btn, button.btn {
+    display: block; width: 100%; padding: 14px; margin-top: 10px;
+    border-radius: 10px; border: 1px solid #2C443A; background: transparent;
+    color: #F0EAD8; font: inherit; font-weight: 600; text-align: center;
+    text-decoration: none; cursor: pointer;
+  }
+  a.btn.primary { background: #E8622C; border-color: #E8622C; color: #12201B; }
+  code {
+    display: block; word-break: break-all; font-size: 12px; color: #9FB3A8;
+    background: #12201B; border: 1px solid #2C443A; border-radius: 8px;
+    padding: 10px; margin-top: 10px; max-height: 120px; overflow: auto;
+  }
+</style>
+</head>
+<body>
+<main>
+  <h1><span class="bracket">[</span> AIRSOFT TACTICAL <span class="bracket">]</span></h1>
+  <p class="sub">Sei stato invitato a una partita.</p>
+
+  <div class="card">
+    <p class="game" id="game">Invito a una partita</p>
+    <p class="team" id="team"></p>
+    <p class="muted" id="hint">
+      Se hai gi&agrave; l'app, questo link la apre da solo sulla partita.
+      Se sei arrivato qui, l'app non &egrave; installata o il telefono non
+      l'ha riconosciuta: installala e poi incolla il codice qui sotto in
+      <b>UNISCITI &rarr; Incolla invito</b>.
+    </p>
+  </div>
+
+  <div class="card">
+    <button class="btn" id="copy" type="button">COPIA CODICE INVITO</button>
+    <code id="payload"></code>
+  </div>
+
+  <a class="btn primary"
+     href="https://play.google.com/store/apps/details?id=com.airsoft.airsoft_tactical">
+     INSTALLA PER ANDROID</a>
+  <a class="btn" href="https://mattabott.github.io/airsoft_tactical_policy/">
+     Informativa privacy</a>
+</main>
+
+<script>
+(function () {
+  var frag = decodeURIComponent((location.hash || '').replace(/^#/, ''));
+  var payloadEl = document.getElementById('payload');
+  payloadEl.textContent = frag || '(nessun invito in questo link)';
+
+  document.getElementById('copy').addEventListener('click', function () {
+    if (!frag) return;
+    navigator.clipboard.writeText(frag).then(function () {
+      document.getElementById('copy').textContent = 'CODICE COPIATO';
+    });
+  });
+
+  // Il payload e' deflate grezzo in base64url: lo apriamo qui per mostrare
+  // il nome della partita. E' un di piu': se il browser non sa scomprimere,
+  // il bottone COPIA funziona comunque.
+  if (!frag || frag.charAt(0) !== '1' || !window.DecompressionStream) return;
+  try {
+    var b64 = frag.slice(1).replace(/-/g, '+').replace(/_/g, '/');
+    var pad = b64.length % 4 ? '='.repeat(4 - (b64.length % 4)) : '';
+    var bin = atob(b64 + pad);
+    var bytes = new Uint8Array(bin.length);
+    for (var i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i);
+    new Response(
+      new Blob([bytes]).stream().pipeThrough(new DecompressionStream('deflate-raw'))
+    ).text().then(function (txt) {
+      var d = JSON.parse(txt);
+      if (d.name) document.getElementById('game').textContent = d.name;
+      if (d.de === true) {
+        document.getElementById('team').textContent = 'Invito come DE';
+      } else if (d.teamId && Array.isArray(d.teams)) {
+        var t = d.teams.filter(function (x) { return x.id === d.teamId; })[0];
+        if (t) document.getElementById('team').textContent = 'Squadra ' + t.name;
+      }
+    }).catch(function () {});
+  } catch (e) { /* il bottone COPIA resta la via sicura */ }
+})();
+</script>
+</body>
+</html>

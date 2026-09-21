@@ -1,0 +1,13 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.airsoft.airsoft_tactical",
+      "sha256_cert_fingerprints": [
+        "83:AB:3C:7D:90:A1:84:78:D8:86:7B:C2:8D:A9:4B:9C:9A:89:EE:66:93:E1:DE:B3:BB:D5:A2:56:DE:0A:D1:7A",
+        "63:51:D0:61:B1:61:7D:07:05:F7:CF:FD:91:8B:5A:7D:AA:27:2B:ED:97:45:AE:7D:41:3C:77:01:9C:D4:3F:46"
+      ]
+    }
+  }
+]
