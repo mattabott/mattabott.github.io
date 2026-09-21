@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Airsoft Tactical</title>
+<meta name="description" content="App per organizzare e giocare le partite di softair con la tua squadra: mappa in tempo reale, chat, obiettivi. Funziona anche senza copertura dati.">
+<meta name="theme-color" content="#12201B">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@500;600&family=Archivo+Narrow:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --pino: #12201B;
+    --superficie: #1A2C25;
+    --hairline: #2C443A;
+    --arancio: #E8622C;
+    --laguna: #3E8E7E;
+    --carta: #F0EAD8;
+    --spento: #9FB3A8;
+    color-scheme: dark;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    padding: clamp(28px, 7vw, 72px) clamp(20px, 6vw, 40px)
+             calc(48px + env(safe-area-inset-bottom, 0px));
+    background: var(--pino);
+    color: var(--carta);
+    font: 400 17px/1.65 "Archivo Narrow", "Helvetica Neue", Arial, sans-serif;
+  }
+  main { max-width: 34rem; margin: 0 auto; }
+
+  .mark { width: 76px; height: 76px; display: block; }
+
+  h1 {
+    font-family: "Zilla Slab", Georgia, serif;
+    font-weight: 600;
+    font-size: clamp(2.1rem, 8vw, 2.9rem);
+    line-height: 1.05;
+    margin: 22px 0 6px;
+    letter-spacing: -0.01em;
+  }
+  .claim {
+    font-size: 1.05rem;
+    color: var(--laguna);
+    margin: 0 0 28px;
+  }
+  p { margin: 0 0 18px; }
+  .intro { font-size: 1.08rem; }
+
+  h2 {
+    font-family: "Zilla Slab", Georgia, serif;
+    font-weight: 500;
+    font-size: 1.12rem;
+    margin: 0 0 4px;
+  }
+  /* La riga sottile separa una capacita' dall'altra: e' struttura, non
+     decorazione. Niente riquadri: non sono oggetti cliccabili. */
+  .cosa { border-top: 1px solid var(--hairline); margin-top: 34px; }
+  .cosa section {
+    padding: 18px 0;
+    border-bottom: 1px solid var(--hairline);
+  }
+  .cosa p { margin: 0; color: var(--spento); }
+
+  .stato {
+    background: var(--superficie);
+    border: 1px solid var(--hairline);
+    border-left: 3px solid var(--arancio);
+    padding: 16px 18px;
+    margin: 34px 0 0;
+  }
+  .stato p:last-child { margin-bottom: 0; }
+
+  .altrove { margin-top: 34px; }
+  .altrove a {
+    display: block;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--hairline);
+    color: var(--carta);
+    text-decoration: none;
+  }
+  .altrove a:first-child { border-top: 1px solid var(--hairline); }
+  /* L'ultima riga la disegna il pie' di pagina: due righe con un vuoto in
+     mezzo sembrano uno sbaglio, non una struttura. */
+  .altrove a:last-child { border-bottom: none; }
+  .altrove a:hover, .altrove a:focus-visible { color: var(--arancio); }
+  .altrove span { display: block; color: var(--spento); font-size: 0.92rem; }
+
+  a:focus-visible {
+    outline: 2px solid var(--arancio);
+    outline-offset: 3px;
+  }
+
+  footer {
+    margin-top: 44px;
+    padding-top: 18px;
+    border-top: 1px solid var(--hairline);
+    color: var(--spento);
+    font-size: 0.9rem;
+  }
+</style>
+</head>
+<body>
+<main>
+  <svg class="mark" viewBox="0 0 512 512" role="img" aria-label="Airsoft Tactical">
+    <g fill="none" stroke="#E8622C" stroke-linecap="round">
+      <circle cx="256" cy="256" r="204" stroke-width="10" opacity="0.55"
+              stroke-dasharray="34 26" transform="rotate(-12 256 256)"/>
+      <circle cx="256" cy="256" r="150" stroke-width="13"/>
+      <circle cx="256" cy="256" r="72" stroke-width="11"/>
+      <g stroke-width="13">
+        <line x1="256" y1="28"  x2="256" y2="118"/>
+        <line x1="256" y1="394" x2="256" y2="484"/>
+        <line x1="28"  y1="256" x2="118" y2="256"/>
+        <line x1="394" y1="256" x2="484" y2="256"/>
+      </g>
+      <g stroke-width="13" opacity="0.9">
+        <line x1="256" y1="150" x2="256" y2="196"/>
+        <line x1="256" y1="316" x2="256" y2="362"/>
+        <line x1="150" y1="256" x2="196" y2="256"/>
+        <line x1="316" y1="256" x2="362" y2="256"/>
+      </g>
+    </g>
+    <circle cx="256" cy="256" r="19" fill="#E8622C"/>
+  </svg>
+
+  <h1>Airsoft Tactical</h1>
+  <p class="claim">Mappa e squadre in tempo reale</p>
+
+  <p class="intro">
+    L'app per organizzare e giocare le partite di softair con la tua
+    squadra. Mostra sulla mappa dove sono i compagni, tiene il conto degli
+    obiettivi e vi permette di parlare senza radio.
+  </p>
+
+  <div class="cosa">
+    <section>
+      <h2>La squadra sulla mappa</h2>
+      <p>
+        Posizione e direzione di ogni compagno mentre vi muovete sul campo.
+        Ogni giocatore vede solo la propria squadra; chi organizza vede
+        tutti.
+      </p>
+    </section>
+    <section>
+      <h2>Funziona anche dove non prende</h2>
+      <p>
+        I campi sono boschi e capannoni senza copertura. Quando la rete
+        manca, posizioni e messaggi passano fra i telefoni vicini via
+        Bluetooth e, con un nodo radio LoRa, fino a qualche chilometro.
+      </p>
+    </section>
+    <section>
+      <h2>Obiettivi e tornei</h2>
+      <p>
+        Obiettivi da conquistare, zone da controllare a tempo, punteggi
+        configurabili e classifica aggiornata.
+      </p>
+    </section>
+    <section>
+      <h2>Le tue mappe del campo</h2>
+      <p>
+        Importa la cartina in KMZ, KML o GPX: si sovrappone alla mappa, con
+        punti di interesse, zone e percorsi.
+      </p>
+    </section>
+  </div>
+
+  <div class="stato">
+    <p>
+      L'app non è ancora sugli store: è in prova con un gruppo ristretto di
+      giocatori. Questo sito per ora serve solo a far funzionare gli inviti
+      e a tenere in linea l'informativa privacy.
+    </p>
+  </div>
+
+  <nav class="altrove">
+    <a href="https://chatbot4eva.com/it/progetti/airsoft-tactical">
+      Pagina del progetto
+      <span>Che cos'è, a che punto è, come chiedere di provarla</span>
+    </a>
+    <a href="https://mattabott.github.io/airsoft_tactical_policy/">
+      Informativa privacy
+      <span>Quali dati l'app raccoglie, e per quanto</span>
+    </a>
+  </nav>
+
+  <footer>
+    Nessuna registrazione e nessun account: si entra in una partita
+    inquadrando un codice QR o toccando un invito.
+  </footer>
+</main>
+</body>
+</html>
