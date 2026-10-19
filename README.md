@@ -8,8 +8,8 @@ Serve due cose:
   i file con cui Android e iOS verificano che questo dominio possa aprire
   l'app invece del browser (App Links / Universal Links);
 - `/at/j`, la pagina che vede chi apre un invito senza avere l'app
-- `/at/t`, la pagina che vede chi avvicina un tag NFC senza avere l'app
-  installata: mostra la partita e il codice da incollare.
+  installata: mostra la partita e il codice da incollare;
+- `/at/t`, la pagina che vede chi avvicina un tag NFC senza avere l'app.
 
 `.nojekyll` serve perché GitHub Pages, passando per Jekyll, salterebbe la
 cartella `.well-known` (comincia con un punto) e i due file di verifica
