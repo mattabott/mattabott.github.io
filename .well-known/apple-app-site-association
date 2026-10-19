@@ -7,6 +7,10 @@
           {
             "/": "/at/j",
             "comment": "Invito a una partita di Airsoft Tactical"
+          },
+          {
+            "/": "/at/t*",
+            "comment": "Tag NFC di Airsoft Tactical"
           }
         ]
       }
